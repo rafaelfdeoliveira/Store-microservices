@@ -1,24 +1,20 @@
 package com.letscode.cliente.service;
 
 import com.letscode.cliente.dto.ClienteDTO;
+import com.letscode.cliente.repository.ClienteRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Sort;
-import org.springframework.data.mongodb.core.MongoTemplate;
-import org.springframework.data.mongodb.core.query.Criteria;
-import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Arrays;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
 public class ClienteService {
 
-    private final MongoTemplate mongoTemplate;
+    private final ClienteRepository clienteRepository;
 
     public void salvar() {
 
@@ -33,22 +29,12 @@ public class ClienteService {
                 .build();
 
 
-        mongoTemplate.save(cliente);
+        clienteRepository.save(cliente);
     }
 
     public void busca() {
-
-        List<Criteria> criterias = new ArrayList<>();
-        // criterias.add(Criteria.where("nome").is("Eduardo"));
-        // criterias.add(Criteria.where("idade").lte(20));
-        //criterias.add(Criteria.where("telefones").size(3));
-
-        Criteria criteria = new Criteria();
-
-        Query query = new Query().with(Sort.by("idade"));
-
         List<ClienteDTO> clientes =
-                mongoTemplate.find(query, ClienteDTO.class);
+                clienteRepository.findByIdade();
 
         clientes.forEach(x -> System.out.println(x.getNome() + " " + x.getIdade()));
     }
