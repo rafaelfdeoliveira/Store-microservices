@@ -18,13 +18,6 @@ public class ClienteController {
 
     private static Map<String, ClienteDTO> clientes = new HashMap<>();
 
-    static {
-      //  clientes.put("1", new ClienteDTO("1", "Eduardo", "1234"));
-      //  clientes.put("2", new ClienteDTO("2", "Joao", "4321"));
-      //  clientes.put("3", new ClienteDTO("3", "Jose", "3212"));
-      //  clientes.put("4", new ClienteDTO("4", "Maria", "5432"));
-    }
-
     @GetMapping
     public List<ClienteDTO> listClientes() {
         return new ArrayList<>(clientes.values());

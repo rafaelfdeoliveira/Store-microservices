@@ -1,6 +1,8 @@
-FROM amazoncorretto:11-alpine
+FROM maven:3.8.5-jdk-11-slim
+COPY src /home/app/src
+COPY pom.xml /home/app
+RUN mvn -f /home/app/pom.xml clean package
 
-COPY target/cliente-api-1.0-SNAPSHOT.jar app.jar
-ENTRYPOINT ["java","-jar","/app.jar"]
+ENTRYPOINT ["java","-jar","/home/app/target/cliente-api-1.0-SNAPSHOT.jar"]
 
 EXPOSE 8083
